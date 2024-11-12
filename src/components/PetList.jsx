@@ -1,5 +1,9 @@
-const PetList = ({ petList }) => {
-  const pets = petList.map((pet) => <li key={pet._id}>{pet.name}</li>)
+const PetList = ({ petList, updateSelected }) => {
+  const pets = petList.map((pet) => (
+    <a key={pet._id} onClick={() => updateSelected(pet)}>
+      <li>{pet.name}</li>
+    </a>
+  ))
 
   return (
     <div>
