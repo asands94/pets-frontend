@@ -1,5 +1,5 @@
-const PetDetail = ({ selected }) => {
-  if (!selected)
+const PetDetail = (props) => {
+  if (!props.selected)
     return (
       <div>
         <h1>NO DETAILS</h1>
@@ -8,11 +8,12 @@ const PetDetail = ({ selected }) => {
 
   return (
     <div>
-      <h1>{selected.name}</h1>
-      <h2>Breed: {selected.breed}</h2>
+      <h1>{props.selected.name}</h1>
+      <h2>Breed: {props.selected.breed}</h2>
       <h2>
-        Age: {selected.age} year{selected.age > 1 ? 's' : ''} old
+        Age: {props.selected.age} year{props.selected.age > 1 ? 's' : ''} old
       </h2>
+      <button onClick={() => props.handleFormView(props.selected)}>Edit</button>
     </div>
   )
 }
