@@ -102,6 +102,8 @@ const App = () => {
         ) : (
           <Route path='/' element={<Landing />} />
         )}
+
+        <Route path='/signup' element={<SignupForm setUser={setUser} />} />
       </Routes>
       {/* <PetList
         petList={petList}
