@@ -1,13 +1,21 @@
+import './App.css'
 import { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import * as petService from './services/petService'
 import PetList from './components/PetList'
 import PetDetail from './components/PetDetail'
 import PetForm from './components/PetForm'
 
+import NavBar from './components/NavBar/NavBar'
+import Landing from './components/Landing/Landing'
+import Dashboard from './components/Dashboard/Dashboard'
+import SignupForm from './components/SignupForm/SignupForm'
+
 const App = () => {
   const [petList, setPetList] = useState([])
   const [selected, setSelected] = useState(null)
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -23,7 +31,7 @@ const App = () => {
       }
     }
     fetchPets()
-  }, [])
+  }, [selected])
 
   const updateSelected = (pet) => {
     setSelected(pet)
@@ -65,9 +73,37 @@ const App = () => {
     }
   }
 
+  const handleRemovePet = async (id) => {
+    try {
+      const deletedPet = await petService.deletePet(id)
+
+      if (deletedPet.error) {
+        throw new Error(deletedPet.error)
+      }
+
+      setPetList((prevState) =>
+        prevState.filter((pet) => pet._id !== deletedPet._id)
+      )
+      console.log(petList)
+
+      setSelected(null)
+      setIsFormOpen(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
-      <PetList
+      <NavBar user={user} />
+      <Routes>
+        {user ? (
+          <Route path='/' element={<Dashboard user={user} />} />
+        ) : (
+          <Route path='/' element={<Landing />} />
+        )}
+      </Routes>
+      {/* <PetList
         petList={petList}
         updateSelected={updateSelected}
         handleFormView={handleFormView}
@@ -80,8 +116,12 @@ const App = () => {
           handleUpdatePet={handleUpdatePet}
         />
       ) : (
-        <PetDetail selected={selected} handleFormView={handleFormView} />
-      )}
+        <PetDetail
+          selected={selected}
+          handleFormView={handleFormView}
+          handleRemovePet={handleRemovePet}
+        />
+      )} */}
     </>
   )
 }

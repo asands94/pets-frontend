@@ -37,6 +37,7 @@ const PetForm = (props) => {
 
         <label htmlFor='age'>Age</label>
         <input
+          type='number'
           id='age'
           name='age'
           value={formData.age}

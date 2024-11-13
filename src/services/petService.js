@@ -30,4 +30,13 @@ const updatePet = async (formData, id) => {
   }
 }
 
-export { index, create, updatePet }
+const deletePet = async (id) => {
+  try {
+    const res = await axios.delete(`${BASE_URL}/${id}`)
+    return res.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export { index, create, updatePet, deletePet }
