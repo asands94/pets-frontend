@@ -68,7 +68,6 @@ const Dashboard = ({ user }) => {
   const handleRemovePet = async (id) => {
     try {
       const deletedPet = await petService.deletePet(id)
-      console.log(deletedPet)
 
       if (deletedPet.error) {
         throw new Error(deletedPet.error)
