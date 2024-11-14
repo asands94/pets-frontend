@@ -8,7 +8,7 @@ const PetList = ({ petList, updateSelected, handleFormView, isFormOpen }) => {
   return (
     <div>
       <h1>Pet List</h1>
-      <ul>{pets}</ul>
+      {!petList.length ? <h3>There are no pets :(</h3> : <ul>{pets}</ul>}
       <button onClick={handleFormView}>
         {isFormOpen ? 'Close Form' : 'New Pet'}
       </button>

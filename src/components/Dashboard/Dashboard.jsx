@@ -23,7 +23,7 @@ const Dashboard = ({ user }) => {
       }
     }
     fetchPets()
-  }, [selected])
+  }, [])
 
   const updateSelected = (pet) => {
     setSelected(pet)
@@ -68,6 +68,7 @@ const Dashboard = ({ user }) => {
   const handleRemovePet = async (id) => {
     try {
       const deletedPet = await petService.deletePet(id)
+      console.log(deletedPet)
 
       if (deletedPet.error) {
         throw new Error(deletedPet.error)
@@ -76,10 +77,8 @@ const Dashboard = ({ user }) => {
       setPetList((prevState) =>
         prevState.filter((pet) => pet._id !== deletedPet._id)
       )
-      console.log(petList)
-
-      setSelected(null)
       setIsFormOpen(false)
+      setSelected(null)
     } catch (error) {
       console.log(error)
     }
