@@ -16,7 +16,6 @@ const App = () => {
     authService.signout()
     setUser(null)
   }
-  console.log(user)
   return (
     <>
       <NavBar user={user} handleSignout={handleSignout} />
